@@ -38,14 +38,14 @@ class ClassWithFunctionsTests(unittest.TestCase):
         self.mocked_external_class.write.assert_called_once()
         self.mocked_external_class.write.assert_called_with()
 
-    def test_will_throw_null_exception(self):
+    def test_will_throw_key_error(self):
         # more generic
         # with self.assertRaises(Exception):
         with self.assertRaises(KeyError):
             with patch.dict(self.mapping, {}, clear=True):
-                value = self.generic_class.get_value_with_no_default("RandomKey")
+                value = self.generic_class.get_value_with_no_default(self.key1)
 
-    def test_not_a_real_test(self):
+    def test_will_work_when_patching_during_the_test(self):
         key = self.key1
         self.generic_class.write_mapped_value(key)
         self.mocked_external_class.write.assert_called_with(found_mapping=True,
